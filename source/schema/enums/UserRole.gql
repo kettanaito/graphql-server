@@ -1,0 +1,5 @@
+enum USER_ROLE {
+  VISITOR
+  EDITOR
+  ADMIN
+}

@@ -1,0 +1,22 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "baseUrl": "source",
+    "paths": {
+      "@classes": ["classes"],
+      "@classes/*": ["classes/*"],
+      "@middleware": ["middleware"],
+      "@middleware/*": ["middleware/*"],
+      "@schema/*": ["schema/*"]
+    },
+    "target": "es5",
+    "moduleResolution": "node"
+  },
+  "include": [
+    "typings",
+    "source/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
