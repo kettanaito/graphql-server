@@ -1,13 +1,18 @@
 import { GraphQLError } from '@classes';
 
-export default function withAuthentication(next: Function) {
-  return (root, args, context, info) => {
-    const { user } = context;
+/**
+ * Resolves a field for authenticated user only.
+ */
+export default function withAuthentication() {
+  return (next: Function) => {
+    return (root, args, context, info) => {
+      const { user } = context;
 
-    if (!user) {
-      throw new GraphQLError('NOT_AUTHENTICATED', 'Foo');
-    }
+      if (!user) {
+        throw new GraphQLError('NOT_AUTHENTICATED', 'Cannot resolve query: user not authenticated.');
+      }
 
-    return next(root, args, context, info);
-  };
+      return next(root, args, context, info);
+    };
+  }
 }

@@ -1,14 +1,19 @@
 import { GraphQLError } from '@classes';
 import withAuthentication from '@schema/middleware/withAuthentication';
 
-export default function withAuthorization(permissions, next: Function) {
-  return withAuthentication((root, args, context, info) => {
-    const { user } = context;
+/**
+ * Resolves a field for the user which matches the provided permissions.
+ */
+export default function withAuthorization(permissions) {
+  return (next: Function) => {
+    return withAuthentication()((root, args, context, info) => {
+      const { user } = context;
 
-    if (user.permissions.includes(...permissions)) {
-      return next(root, args, context, info);
-    }
+      if (user.permissions.includes(...permissions)) {
+        return next(root, args, context, info);
+      }
 
-    throw new GraphQLError('NOT_AUTHORIZED', 'Cannot resolve query: not authorized');
-  });
+      throw new GraphQLError('NOT_AUTHORIZED', 'Cannot resolve query: not authorized');
+    });
+  };
 }

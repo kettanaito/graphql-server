@@ -1,6 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "noEmit": true,
     "baseUrl": "source",
     "paths": {
       "@classes": ["classes"],
@@ -11,13 +12,13 @@
     "target": "es5",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "lib": [
       "es2018",
       "esnext.asynciterable"
     ]
   },
   "awesomeTypescriptLoaderOptions": {
-    "useCache": true,
     "useBabel": true
   },
   "include": [
