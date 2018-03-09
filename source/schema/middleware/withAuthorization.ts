@@ -1,5 +1,5 @@
 import { GraphQLError } from '@classes';
-import withAuthentication from '@middleware/withAuthentication';
+import withAuthentication from '@schema/middleware/withAuthentication';
 
 export default function withAuthorization(permissions, next: Function) {
   return withAuthentication((root, args, context, info) => {

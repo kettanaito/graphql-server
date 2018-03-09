@@ -1,5 +1,6 @@
 enum USER_ROLE {
   VISITOR
   EDITOR
+  PUBLISHER
   ADMIN
 }

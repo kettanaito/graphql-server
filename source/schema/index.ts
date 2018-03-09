@@ -1,14 +1,25 @@
+import { DocumentNode } from 'graphql';
 import { makeExecutableSchema } from 'graphql-tools';
 import { GraphQLSchema } from '@classes';
-import composeResolvers from './utils/composeResolvers';
 
-import * as enums from './enums';
-import * as scalars from './scalars';
+/* Enums */
+import UserRole from './enums/UserRole.gql';
+
+/* Scalars */
+import { Email } from './scalars';
+
+/* Types */
 import * as User from './types/User';
 
+console.log({ UserRole });
+
 const schema = new GraphQLSchema({
-  enums,
-  scalars,
+  enums: [
+    UserRole
+  ],
+  scalars: {
+    Email
+  },
   types: {
     User
   }

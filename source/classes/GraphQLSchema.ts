@@ -1,7 +1,8 @@
 import { ITypedef, IResolvers } from 'graphql-tools/dist/Interfaces';
+import { invariant } from '@utils';
 
 interface IGraphQLSchemaOptions {
-  enums?: IEntityMap,
+  enums?: [ITypedef],
   scalars?: IEntityMap,
   types?: IEntityMap
 }
@@ -11,7 +12,7 @@ interface IEntityMap {
 }
 
 interface IEntity {
-  type: ITypedef,
+  types: ITypedef,
   resolver: any
 }
 
@@ -20,24 +21,53 @@ export default class GraphQLSchema {
   resolvers: IResolvers[]
 
   constructor(options: IGraphQLSchemaOptions) {
+    invariant(options, 'GraphQLSchema: Cannot create a schema with no options provided.');
+
     const { enums, scalars, types } = options;
 
-    this.apply(enums);
-    this.apply(scalars);
-    this.apply(types);
+    this.typeDefs = [];
+    this.resolvers = [];
+
+    this.applyTypeDef(enums);
+    this.apply(scalars, 'scalar');
+    this.apply(types, 'type');
 
     return this;
   }
 
-  apply(entityMap: IEntityMap) {
+  apply(entityMap: IEntityMap, entityType: string) {
     if (!entityMap) return;
 
-    Object.keys(entityMap).forEach((entityName) => {
-      const { type, resolver } = entityMap[entityName];
+    console.log({ entityMap })
 
-      this.typeDefs.push(type);
+    Object.keys(entityMap).forEach((entityName) => {
+      const entityValue = entityMap[entityName];
+
+      console.log({ entityValue });
+
+      invariant(entityValue, 'GraphQLSchema: Failed to apply the %s `%s`. Expected entity to be an Object ' +
+        'of { type, resolver } shape, but got: %s', entityType, entityName, entityValue);
+
+      const { types, resolver } = entityValue;
+
+      invariant(types, 'GraphQLSchema: Failed to apply the %s `%s`. Expected a valid type definition, but got: %s',
+        entityType, entityName, types);
+      invariant(resolver, 'GraphQLSchema: Failed to apply %s `%s`. Expected a valid resolver, but got: %s',
+        entityType, entityName, resolver);
+
+      this.applyTypeDef(types);
       this.resolvers.push(resolver);
     });
+
+    return this;
+  }
+
+  applyTypeDef(typeDefs: ITypedef | [ITypedef]) {
+    if (Array.isArray(typeDefs)) {
+      this.typeDefs.push(...typeDefs)
+    } else {
+      this.typeDefs.push(typeDefs);
+    }
 
     return this;
   }

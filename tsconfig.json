@@ -5,16 +5,24 @@
     "paths": {
       "@classes": ["classes"],
       "@classes/*": ["classes/*"],
-      "@middleware": ["middleware"],
-      "@middleware/*": ["middleware/*"],
-      "@schema/*": ["schema/*"]
+      "@schema/*": ["schema/*"],
+      "@utils": ["utils"]
     },
     "target": "es5",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "lib": [
+      "es2018",
+      "esnext.asynciterable"
+    ]
+  },
+  "awesomeTypescriptLoaderOptions": {
+    "useCache": true,
+    "useBabel": true
   },
   "include": [
-    "typings",
-    "source/**/*"
+    "source/**/*",
+    "typings"
   ],
   "exclude": [
     "node_modules"
