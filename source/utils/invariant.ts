@@ -5,5 +5,9 @@ import * as util from 'util';
  */
 export default function invariant(predicate: any, message: string, ...args) {
   if (predicate) return;
-  throw new Error(util.format(message, ...args));
+  const error: any = new Error(util.format(message, ...args));
+  error.name = 'Invariant violation';
+  error.framesToPop = 1;
+
+  throw error;
 }
