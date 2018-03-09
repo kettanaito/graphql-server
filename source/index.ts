@@ -1,10 +1,13 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as helmet from 'helmet';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import schema from './schema';
 import formatError from './formatError';
 
 const app = express();
+
+app.use(helmet());
 
 app.use('/', bodyParser.json(), graphqlExpress({
   schema,
