@@ -32,6 +32,7 @@ export default {
   },
   resolve: {
     alias: {
+      '@': path.resolve(__dirname, 'source'),
       '@classes': path.resolve(__dirname, 'source/classes'),
       '@schema': path.resolve(__dirname, 'source/schema'),
       '@utils': path.resolve(__dirname, 'source/utils')

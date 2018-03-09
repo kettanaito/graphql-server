@@ -9,6 +9,7 @@ import UserRole from './enums/UserRole.gql';
 import { Email } from './scalars';
 
 /* Types */
+import * as RootQuery from './types/RootQuery';
 import * as User from './types/User';
 
 console.log({ UserRole });
@@ -21,6 +22,7 @@ const schema = new GraphQLSchema({
     Email
   },
   types: {
+    RootQuery,
     User
   }
 });

@@ -4,6 +4,7 @@
     "noEmit": true,
     "baseUrl": "source",
     "paths": {
+      "@/*": ["*"],
       "@classes": ["classes"],
       "@classes/*": ["classes/*"],
       "@schema/*": ["schema/*"],
@@ -22,8 +23,8 @@
     "useBabel": true
   },
   "include": [
-    "source/**/*",
-    "typings"
+    "typings",
+    "source/**/*"
   ],
   "exclude": [
     "node_modules"

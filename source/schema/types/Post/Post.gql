@@ -1,0 +1,8 @@
+type Post {
+  # Meta
+  publishedAt: Date!
+  author: User!
+
+  # General
+  title: String!
+}
