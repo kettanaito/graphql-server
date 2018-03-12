@@ -10,7 +10,7 @@ npm start
 ```bash
 npm run server
 ```
-> The build must preceed this command in order to have something to establish.
+> The build must precede this command in order to have something to establish.
 
 
 ### Build
