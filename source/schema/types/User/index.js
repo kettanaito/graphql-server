@@ -1,2 +1,2 @@
 export types from './User.gql';
-export resolver from './User.resolver';
+export resolvers from './User.resolvers';

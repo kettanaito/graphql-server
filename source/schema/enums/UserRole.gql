@@ -1,6 +1,5 @@
 """
-User role defines the permissions of a particular user to perform
-sensitive operations.
+User role defines the permission of a user to perform certain operations.
 """
 enum USER_ROLE {
   "Unauthenticated user. Capable of requesting general data. Cannot edit anything."

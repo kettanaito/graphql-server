@@ -1,5 +1,13 @@
 # graphql-server
 
+## Features
+### Development
+* GraphiQL
+* Live Reloading of GraphQL schema
+
+### Production
+* Basic security headers from `helmet`
+
 ## Commands
 ### Launch webpack in development mode
 ```bash
