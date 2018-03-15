@@ -1,26 +1,17 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import helmet from 'helmet';
-import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
-import schema from './schema';
-import formatError from './formatError';
+import http from 'http';
+import app from './app';
 
-const GRAPHQL_ENDPOINT = '/';
+const server = http.createServer(app);
+let currentApp = app;
 
-const app = express();
-app.use(helmet());
-
-if (process.env.NODE_ENV === 'development') {
-  app.use('/graphiql', graphiqlExpress({
-    endpointURL: GRAPHQL_ENDPOINT
-  }));
-}
-
-app.use(GRAPHQL_ENDPOINT, bodyParser.json(), graphqlExpress({
-  schema,
-  formatError
-}));
-
-app.listen(8993, function () {
+server.listen(8993, function () {
   console.log('API server connection established at http://localhost:8993');
 });
+
+if (module.hot) {
+  module.hot.accept(['./app', './schema'], () => {
+    server.removeListener('request', currentApp);
+    server.on('request', app);
+    currentApp = app;
+  });
+}

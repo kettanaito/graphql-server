@@ -1,6 +1,17 @@
+"""
+User role defines the permissions of a particular user to perform
+sensitive operations. FOsO
+"""
 enum USER_ROLE {
+  "Unauthenticated user. Capable of requesting general data. Cannot edit anything."
   VISITOR
+
+  "Capable of publishing new content and editing the content of personal authorship."
   EDITOR
+
+  "Capable of reviewing and editing the content of another users."
   PUBLISHER
+
+  "Administrator. Basically, a semi-god."
   ADMIN
 }
