@@ -1,4 +1,3 @@
-import { ITypedef, IResolvers } from 'graphql-tools/dist/Interfaces';
 import { invariant } from '@utils';
 
 export default class GraphQLSchema {

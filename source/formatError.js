@@ -1,10 +1,9 @@
-import { GraphQLError as NativeGraphQLError } from 'graphql';
-import { GraphQLError as CustomGraphQLError } from '@classes';
+import { GraphQLError } from '@classes';
 
 export default function formatError(error, returnNull = false) {
   const originalError = error.originalError;
 
-  if (originalError instanceof CustomGraphQLError) {
+  if (originalError instanceof GraphQLError) {
     return originalError.serialize(error);
   }
 
