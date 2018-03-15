@@ -1,9 +1,9 @@
-import { GraphQLScalarType, StringValueNode } from 'graphql';
+import { GraphQLScalarType } from 'graphql';
 import gql from 'graphql-tag';
 import isEmail from 'validator/lib/isEmail';
 import { invariant } from '@utils';
 
-function validateEmail(value: string) {
+function validateEmail(value) {
   invariant(isEmail(value), 'Invalid value for the scalar `Email`. Expected a valid email address, but got: %s', value);
   return value;
 }
@@ -17,6 +17,6 @@ export default {
     description: 'E-mail address',
     serialize: validateEmail,
     parseValue: validateEmail,
-    parseLiteral: ({ value }: StringValueNode) => validateEmail(value)
+    parseLiteral: ({ value }) => validateEmail(value)
   })
 };

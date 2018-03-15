@@ -1,15 +1,12 @@
 import ExtendableError from 'extendable-error';
-import { GraphQLError as NativeGraphQLError } from 'graphql';
 
 export default class GraphQLError extends ExtendableError {
-  errorCode: string
-
-  constructor(errorCode: string, message:string) {
+  constructor(errorCode, message) {
     super(message);
     this.errorCode = errorCode;
   }
 
-  serialize(originalError: NativeGraphQLError) {
+  serialize(originalError) {
     const { errorCode, message } = this;
     const { locations, path } = originalError;
 

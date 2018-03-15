@@ -6,23 +6,24 @@ import { GraphQLSchema } from '@classes';
 import UserRole from './enums/UserRole.gql';
 
 /* Scalars */
-import { Email } from './scalars';
+import { Date, Email } from './scalars';
 
 /* Types */
-import * as RootQuery from './types/RootQuery';
+import * as Query from './types/Query';
 import * as User from './types/User';
-
-console.log({ UserRole });
+import * as Post from './types/Post';
 
 const schema = new GraphQLSchema({
   enums: [
     UserRole
   ],
   scalars: {
+    Date,
     Email
   },
   types: {
-    RootQuery,
+    Query,
+    Post,
     User
   }
 });

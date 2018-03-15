@@ -4,7 +4,7 @@ import { GraphQLError } from '@classes';
  * Resolves a field for authenticated user only.
  */
 export default function withAuthentication() {
-  return (next: Function) => {
+  return (next) => {
     return (root, args, context, info) => {
       const { user } = context;
 

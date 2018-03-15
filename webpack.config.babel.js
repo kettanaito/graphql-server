@@ -1,7 +1,6 @@
 import path from 'path';
 import webpack from 'webpack';
 import nodeExternals from 'webpack-node-externals';
-// import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
 import packageJson from './package.json';
 
 export default {
@@ -17,10 +16,10 @@ export default {
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test: /\.js$/,
         include: path.resolve(__dirname, 'source'),
         exclude: /node_modules/,
-        use: ['awesome-typescript-loader']
+        use: ['babel-loader']
       },
       {
         test: /\.gql$/,
@@ -30,14 +29,18 @@ export default {
       }
     ]
   },
+  plugins: [
+    new webpack.EnvironmentPlugin({
+      'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    })
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'source'),
       '@classes': path.resolve(__dirname, 'source/classes'),
       '@schema': path.resolve(__dirname, 'source/schema'),
       '@utils': path.resolve(__dirname, 'source/utils')
-    },
-    extensions: ['.ts', '.js']
+    }
   },
   devtool: 'sourcemap'
 };

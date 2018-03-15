@@ -9,5 +9,14 @@ export default {
       password: 'Secret!'
     }
   ],
-  posts: []
+  posts: [
+    {
+      id: 1,
+      title: 'Lorem ipsum dolor sit amet'
+    },
+    {
+      id: 2,
+      title: 'A GraphQL fairytale'
+    }
+  ]
 };

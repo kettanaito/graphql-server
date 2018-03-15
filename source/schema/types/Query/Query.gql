@@ -1,9 +1,9 @@
 type Query {
   # User
   user: User
-  users: [User]
+  users: [User!]
 
   # Post
   post: Post
-  posts: [Post]
+  posts: [Post!]
 }

@@ -1,5 +1,6 @@
 type Post {
   # Meta
+  id: ID!
   publishedAt: Date!
   author: User!
 
