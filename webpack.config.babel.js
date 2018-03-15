@@ -9,11 +9,11 @@ const DEVELOPMENT = (process.env.NODE_ENV === 'development');
 export default {
   target: 'node',
   entry: {
-    index: ['webpack/hot/poll?1000', path.resolve(__dirname, packageJson.source)]
+    index: ['webpack/hot/signal', path.resolve(__dirname, packageJson.source)]
   },
   externals: [
     nodeExternals({
-      whitelist: ['webpack/hot/poll?1000']
+      whitelist: ['webpack/hot/signal']
     })
   ],
   output: {
@@ -37,7 +37,10 @@ export default {
     ]
   },
   plugins: [
-    new StartServerPlugin('index.js'),
+    new StartServerPlugin({
+      name: 'index.js',
+      signal: true
+    }),
 
     new webpack.EnvironmentPlugin({
       'NODE_ENV': JSON.stringify(process.env.NODE_ENV)

@@ -1,6 +1,6 @@
 """
 User role defines the permissions of a particular user to perform
-sensitive operations. FOsO
+sensitive operations.
 """
 enum USER_ROLE {
   "Unauthenticated user. Capable of requesting general data. Cannot edit anything."
