@@ -5,5 +5,5 @@ type Query {
 
   # Post
   post: Post
-  posts: [Post!]
+  posts: [Post]
 }

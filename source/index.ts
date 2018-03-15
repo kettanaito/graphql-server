@@ -5,18 +5,19 @@ import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import schema from './schema';
 import formatError from './formatError';
 
-const app = express();
+const GRAPHQL_ENDPOINT = '/';
 
+const app = express();
 app.use(helmet());
 
-app.use('/', bodyParser.json(), graphqlExpress({
+app.use(GRAPHQL_ENDPOINT, bodyParser.json(), graphqlExpress({
   schema,
   formatError
 }));
 
 if (process.env.NODE_ENV === 'development') {
   app.use('/graphiql', graphiqlExpress({
-    endpointURL: '/'
+    endpointURL: GRAPHQL_ENDPOINT
   }));
 }
 
