@@ -1,13 +1,12 @@
 import { withAuthorization } from '@schema/middleware';
-import mockedData from '@/data';
 
 export default {
   Query: {
-    users() {
-      return mockedData.users;
+    users(root, args, context) {
+      return context.UserController.getUsers(args);
     },
-    user(root, { id }) {
-      return mockedData.user.find(user => user.id === id);
+    user(root, args, context) {
+      return context.UserController.getUser(args);
     }
   },
   User: {

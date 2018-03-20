@@ -1,12 +1,15 @@
-import mockedData from '@/data';
-
 export default {
+  Post: {
+    author(root, args, context) {
+      return context.UserController.getUser({ id: root.authorId });
+    }
+  },
   Query: {
-    posts() {
-      return mockedData.posts;
+    posts(root, args, context) {
+      return context.PostController.getPosts(args);
     },
-    post(root, { id }) {
-      return mockedData.posts.find(post => post.id === id);
+    post(root, args, context) {
+      return context.PostController.getPost(args);
     }
   }
 };

@@ -8,6 +8,7 @@ export default class GraphQLSchema {
 
     this.typeDefs = [];
     this.resolvers = [];
+    this.context = {};
 
     this.applyTypeDef(enums);
     this.apply(scalars, 'scalar');
@@ -25,7 +26,7 @@ export default class GraphQLSchema {
       invariant(entityValue, 'GraphQLSchema: Failed to apply the %s `%s`. Expected entity to be an Object ' +
         'of { type, resolver } shape, but got: %s', entityType, entityName, entityValue);
 
-      const { types, resolvers } = entityValue;
+      const { types, resolvers, controller } = entityValue;
 
       invariant(types, 'GraphQLSchema: Failed to apply the %s `%s`. Expected a valid type definition, but got: %s',
         entityType, entityName, types);
@@ -34,6 +35,10 @@ export default class GraphQLSchema {
 
       if (resolvers) {
         this.resolvers.push(resolvers);
+      }
+
+      if (controller) {
+        this.context[controller.name] = new controller();
       }
     });
 

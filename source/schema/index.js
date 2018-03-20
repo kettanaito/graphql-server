@@ -1,5 +1,5 @@
 import { DocumentNode } from 'graphql';
-import { makeExecutableSchema } from 'graphql-tools';
+
 import { GraphQLSchema } from '@classes';
 
 /* Enums */
@@ -28,4 +28,4 @@ const schema = new GraphQLSchema({
   }
 });
 
-export default makeExecutableSchema(schema);
+export default schema;

@@ -7,3 +7,8 @@ type User {
   firstName: String!
   lastName: String!
 }
+
+extend type Query {
+  user(id: Int!): User!
+  users: [User!]
+}

@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
+import { makeExecutableSchema } from 'graphql-tools';
 import schema from './schema';
 import formatError from './formatError';
 
@@ -18,9 +19,12 @@ if (process.env.NODE_ENV === 'development') {
   }));
 }
 
-app.use(GRAPHQL_ENDPOINT, bodyParser.json(), graphqlExpress({
-  schema,
-  formatError
+app.use(GRAPHQL_ENDPOINT, bodyParser.json(), graphqlExpress(req => {
+  return {
+    schema: makeExecutableSchema(schema),
+    context: schema.context,
+    formatError
+  };
 }));
 
 export default app;

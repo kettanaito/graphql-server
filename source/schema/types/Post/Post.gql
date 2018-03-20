@@ -2,8 +2,14 @@ type Post {
   # Meta
   id: ID!
   publishedAt: Date!
-  author: User!
 
   # General
   title: String!
+  authorId: Int!
+  author: User
+}
+
+extend type Query {
+  post(id: Int!): Post!
+  posts: [Post!]
 }
