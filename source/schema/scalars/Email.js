@@ -4,7 +4,7 @@ import isEmail from 'validator/lib/isEmail';
 import { invariant } from '@utils';
 
 function validateEmail(value) {
-  invariant(isEmail(value), 'Invalid value for the scalar `Email`. Expected a valid email address, but got: %s', value);
+  invariant(isEmail(value), 'Invalid value for the `Email` scalar. Expected a valid email address, but got: %s', value);
   return value;
 }
 

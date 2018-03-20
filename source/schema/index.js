@@ -1,19 +1,15 @@
-import { DocumentNode } from 'graphql';
-
 import { GraphQLSchema } from '@classes';
 
 /* Enums */
-import UserRole from './enums/UserRole.gql';
+import { UserRole } from './enums';
 
 /* Scalars */
 import { Date, Email } from './scalars';
 
 /* Types */
-import * as Query from './types/Query';
-import * as User from './types/User';
-import * as Post from './types/Post';
+import { Query, User, Post } from './types';
 
-const schema = new GraphQLSchema({
+export default new GraphQLSchema({
   enums: [
     UserRole
   ],
@@ -27,5 +23,3 @@ const schema = new GraphQLSchema({
     User
   }
 });
-
-export default schema;
