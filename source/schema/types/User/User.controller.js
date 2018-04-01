@@ -9,6 +9,7 @@ export default class UserController extends Controller {
   }
 
   getUser(args) {
-    return mockedData.users.find(user => user.id === args.id);
+    return this.get(args);
+    // return mockedData.users.find(user => user.id === args.id);
   }
 }

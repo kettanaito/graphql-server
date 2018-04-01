@@ -1,0 +1,13 @@
+type Song {
+  artistId: ID!
+  artist: Artist!
+  title: String!
+  country: String
+  releaseDate: Date
+  explicit: Boolean!
+  price: Float!
+}
+
+extend type Query {
+  search(term: String!, first: Int): [Song!]
+}

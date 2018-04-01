@@ -7,7 +7,7 @@ import { UserRole } from './enums';
 import { Date, Email } from './scalars';
 
 /* Types */
-import { Query, User, Post } from './types';
+import { Query, User, Post, Product, Artist, Song } from './types';
 
 export default new GraphQLSchema({
   enums: [
@@ -20,6 +20,10 @@ export default new GraphQLSchema({
   types: {
     Query,
     Post,
-    User
+    User,
+    Product,
+
+    Artist,
+    Song
   }
 });

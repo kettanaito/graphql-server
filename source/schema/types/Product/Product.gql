@@ -1,0 +1,16 @@
+type Product {
+  id: String!
+  title: String!
+  price: ProductPrice
+}
+
+type ProductPrice {
+  net: Float!
+  gross: Float!
+  vatPercentage: Float
+}
+
+extend type Query {
+  product(id: String!): Product
+  products(ids: [String!]): [Product!]
+}
