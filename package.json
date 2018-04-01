@@ -44,6 +44,7 @@
     "helmet": "^3.12.0",
     "husky": "^0.14.3",
     "nodemon": "^1.17.1",
+    "prettier": "^1.11.1",
     "pretty-quick": "^1.4.1",
     "start-server-webpack-plugin": "^2.2.5",
     "url": "^0.11.0",
