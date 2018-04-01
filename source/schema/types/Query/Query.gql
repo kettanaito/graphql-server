@@ -1,2 +1,4 @@
 # Root Query
-type Query
+type Query {
+  search(term: String!, first: Int): [Song!]
+}

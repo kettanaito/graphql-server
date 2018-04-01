@@ -7,7 +7,3 @@ type Song {
   explicit: Boolean!
   price: Float!
 }
-
-extend type Query {
-  search(term: String!, first: Int): [Song!]
-}
