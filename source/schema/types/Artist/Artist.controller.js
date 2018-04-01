@@ -1,5 +1,5 @@
-import { Controller } from '@classes';
-import { normalizeArtist } from './selectors';
+import { Controller } from '@classes'
+import { normalizeArtist } from './selectors'
 
 export default class ArtistController extends Controller {
   url = 'https://itunes.apple.com/lookup'
@@ -11,10 +11,10 @@ export default class ArtistController extends Controller {
         id
       },
       transformResponse(res) {
-        return normalizeArtist(res.results[0]);
+        return normalizeArtist(res.results[0])
       }
-    };
+    }
 
-    return this.request(params);
+    return this.request(params)
   }
 }

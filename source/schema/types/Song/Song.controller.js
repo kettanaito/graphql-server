@@ -1,21 +1,21 @@
-import { Controller } from '@classes';
-import { normalizeSong } from './selectors';
-import { arrayUtils } from '@utils';
+import { Controller } from '@classes'
+import { normalizeSong } from './selectors'
+import { arrayUtils } from '@utils'
 
 export default class SongController extends Controller {
   url = 'https://itunes.apple.com/search'
 
-  getByTitle({ term, first }) {
+  getByTerm({ term, first }) {
     const params = {
       url: this.url,
       query: {
-        term: term
+        term
       },
       transformResponse(res) {
-        return arrayUtils.takeFirst(res.results, first).map(normalizeSong);
+        return res.results.map(normalizeSong)
       }
-    };
+    }
 
-    return this.request(params);
+    return this.request(params)
   }
 }

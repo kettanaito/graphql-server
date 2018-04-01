@@ -5,5 +5,5 @@ export function normalizeArtist(artist) {
     name: artist.artistName,
     genreId: artist.primaryGenreId,
     genreName: artist.primaryGenreName
-  };
+  }
 }

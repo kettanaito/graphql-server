@@ -16,6 +16,8 @@ export default {
     description: 'Date',
     serialize: validateDate,
     parseValue: validateDate,
-    parseLiteral: ({ value }) => validateDate(value)
+    parseLiteral({ value }) {
+      return validateDate(value);
+    }
   })
 };

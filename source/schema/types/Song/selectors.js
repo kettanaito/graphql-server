@@ -3,6 +3,6 @@ export function normalizeSong(song) {
     ...song,
     title: song.trackName,
     price: song.trackPrice,
-    explicit: (song.collectionExplicitness === 'explicit')
-  };
+    explicit: song.collectionExplicitness === 'explicit'
+  }
 }

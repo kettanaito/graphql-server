@@ -17,6 +17,8 @@ export default {
     description: 'E-mail address',
     serialize: validateEmail,
     parseValue: validateEmail,
-    parseLiteral: ({ value }) => validateEmail(value)
+    parseLiteral({ value }) {
+      return validateEmail(value);
+    }
   })
 };

@@ -5,5 +5,5 @@ type Song {
   country: String
   releaseDate: Date
   explicit: Boolean!
-  price: Float!
+  price: Float
 }

@@ -1,7 +1,7 @@
 export default {
   Query: {
     artist(root, args, context) {
-      return context.ArtistController.getById(args.id);
+      return context.ArtistController.getById(args.id)
     }
   }
-};
+}
