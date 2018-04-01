@@ -1,8 +1,5 @@
 import util from 'util';
 
-/**
- * Throws when the predicate has a falsy value.
- */
 export default function invariant(predicate, message, ...args) {
   if (predicate) return;
 
