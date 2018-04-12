@@ -7,7 +7,7 @@ import { isset, invariant } from '~/utils'
 type TSchemaEntity = {
   types: DocumentNode,
   resolvers: Object,
-  controller: Controller
+  controller: typeof Controller
 }
 
 type TSchemaEntityMap = {

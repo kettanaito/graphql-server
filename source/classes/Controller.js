@@ -1,18 +1,29 @@
+// @flow
+import { AxiosInstance, AxiosRequestConfig } from 'axios'
+
 import axios from 'axios'
 import DataLoader from 'dataloader'
 import { normalize } from 'normalizr'
 import urlUtils from 'url'
 
-export default class Controller {
-  defaultParams = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
+type TRequestConfig = {
+  method?: string,
+  pathname: string
+}
+
+const defaultReqParams = {
+  headers: {
+    'Content-Type': 'application/json'
   }
+}
+
+export default class Controller {
+  axios: AxiosInstance
+  loader: DataLoader<any, any>
 
   static urlUtils = urlUtils
 
-  constructor(options) {
+  constructor(options: AxiosRequestConfig) {
     this.axios = axios.create(options)
 
     /**
@@ -26,7 +37,7 @@ export default class Controller {
     return this
   }
 
-  fetch(options) {
+  fetch(options: AxiosRequestConfig) {
     return this.axios(options)
       .then(response => {
         return response.data
@@ -36,13 +47,15 @@ export default class Controller {
       })
   }
 
-  request({
-    method = 'GET',
-    url: pathname,
-    query,
-    transformResponse,
-    ...args
-  }) {
+  request(options: AxiosRequestConfig) {
+    const {
+      method,
+      url: pathname,
+      query,
+      transformResponse,
+      ...restOptions
+    } = options
+
     const url = urlUtils.format({ pathname, query })
 
     const reqParams = {
@@ -52,8 +65,8 @@ export default class Controller {
         axios.defaults.transformResponse,
         transformResponse
       ),
-      ...this.defaultParams,
-      ...args
+      ...defaultReqParams,
+      ...restOptions
     }
 
     if (method === 'GET') {
@@ -63,7 +76,7 @@ export default class Controller {
     return this.fetch(reqParams)
   }
 
-  normalize(response, schema) {
+  normalize(response: any, schema: any) {
     return normalize(response, schema)
   }
 }
