@@ -1,6 +1,7 @@
-import axios from 'axios';
-import DataLoader from 'dataloader';
-import urlUtils from 'url';
+import axios from 'axios'
+import DataLoader from 'dataloader'
+import { normalize } from 'normalizr'
+import urlUtils from 'url'
 
 export default class Controller {
   defaultParams = {
@@ -9,33 +10,40 @@ export default class Controller {
     }
   }
 
+  static urlUtils = urlUtils
+
   constructor(options) {
-    this.urlUtils = urlUtils;
-    this.axios = axios.create(options);
+    this.axios = axios.create(options)
 
     /**
      * Create an instance of DataLoader to batch the controller-specific requests.
      * https://github.com/facebook/dataloader
      */
-    this.loader = new DataLoader((reqParamsCollection) => {
-      return Promise.all(reqParamsCollection.map(this.fetch.bind(this)));
-    });
+    this.loader = new DataLoader(reqParamsCollection => {
+      return Promise.all(reqParamsCollection.map(this.fetch.bind(this)))
+    })
 
-    return this;
+    return this
   }
 
   fetch(options) {
     return this.axios(options)
-      .then((response) => {
-        return response.data;
+      .then(response => {
+        return response.data
       })
-      .catch((error) => {
-        throw new Error(error);
-      });
+      .catch(error => {
+        throw new Error(error)
+      })
   }
 
-  request({ method = 'GET', url: pathname, query, transformResponse, ...args }) {
-    const url = urlUtils.format({ pathname, query });
+  request({
+    method = 'GET',
+    url: pathname,
+    query,
+    transformResponse,
+    ...args
+  }) {
+    const url = urlUtils.format({ pathname, query })
 
     const reqParams = {
       method,
@@ -45,13 +53,17 @@ export default class Controller {
         transformResponse
       ),
       ...this.defaultParams,
-      ...args,
-    };
-
-    if (method === 'GET') {
-      return this.loader.load(reqParams);
+      ...args
     }
 
-    return this.fetch(reqParams);
+    if (method === 'GET') {
+      return this.loader.load(reqParams)
+    }
+
+    return this.fetch(reqParams)
+  }
+
+  normalize(response, schema) {
+    return normalize(response, schema)
   }
 }

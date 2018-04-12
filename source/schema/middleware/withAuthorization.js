@@ -1,20 +1,24 @@
-import { GraphQLError } from '@classes';
-import withAuthentication from '@schema/middleware/withAuthentication';
+// @flow
+import { GraphQLError } from '~/classes'
+import withAuthentication from '~/schema/middleware/withAuthentication'
 
 /**
  * Resolves a field for the user which matches the provided permissions.
  * @param {Permission[]} persmissions
  */
-export default function withAuthorization(permissions) {
-  return (next) => {
+export default function withAuthorization(permissions: any[]) {
+  return (next: Function) => {
     return withAuthentication()((root, args, context, info) => {
-      const { user } = context;
+      const { user } = context
 
       if (!user.permissions.includes(...permissions)) {
-        throw new GraphQLError('NOT_AUTHORIZED', 'Cannot resolve query: not authorized');
+        throw new GraphQLError(
+          'NOT_AUTHORIZED',
+          'Cannot resolve query: not authorized'
+        )
       }
 
-      return next(root, args, context, info);
-    });
-  };
+      return next(root, args, context, info)
+    })
+  }
 }

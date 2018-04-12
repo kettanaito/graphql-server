@@ -1,6 +1,6 @@
-import { Controller } from '@classes'
-import { normalizeSong } from './selectors'
-import { arrayUtils } from '@utils'
+import { Controller } from '~/classes'
+import { normalizeSong } from './normalize'
+import { arrayUtils } from '~/utils'
 
 export default class SongController extends Controller {
   url = 'https://itunes.apple.com/search'

@@ -21,4 +21,4 @@ export default {
       title: 'A GraphQL fairytale'
     }
   ]
-};
+}

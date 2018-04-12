@@ -1,5 +1,5 @@
-import { Controller } from '@classes'
-import mockedData from '@/data'
+import { Controller } from '~/classes'
+import mockedData from '~/data'
 
 export default class UserController extends Controller {
   getUsers(args) {

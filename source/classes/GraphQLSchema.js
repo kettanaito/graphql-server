@@ -1,57 +1,97 @@
-import { invariant } from '@utils';
+// @flow
+import type { DocumentNode } from 'graphql'
+import type { ITypedef } from 'graphql-tools/dist/Interfaces'
+import Controller from './Controller'
+import { isset, invariant } from '~/utils'
+
+type TSchemaEntity = {
+  types: DocumentNode,
+  resolvers: Object,
+  controller: Controller
+}
+
+type TSchemaEntityMap = {
+  [entityName: string]: TSchemaEntity
+}
+
+type TSchemaOptions = {
+  enums?: DocumentNode[],
+  scalars?: TSchemaEntityMap,
+  types?: TSchemaEntityMap
+}
 
 export default class GraphQLSchema {
-  constructor(options) {
-    invariant(options, 'GraphQLSchema: Cannot create a schema with no options provided.');
+  typeDefs: ITypedef[]
+  resolvers: Object[]
+  context: Object
 
-    const { enums, scalars, types } = options;
+  constructor(options: TSchemaOptions) {
+    invariant(
+      options,
+      'GraphQLSchema: Cannot create a schema with no options provided.'
+    )
 
-    this.typeDefs = [];
-    this.resolvers = [];
-    this.context = {};
+    const { enums, scalars, types } = options
 
-    this.applyTypeDef(enums);
-    this.apply(scalars, 'scalar');
-    this.apply(types, 'type');
+    this.typeDefs = []
+    this.resolvers = []
+    this.context = {}
 
-    return this;
+    if (enums) this.applyTypeDef(enums)
+    if (scalars) this.apply(scalars, 'scalar')
+    if (types) this.apply(types, 'type')
+
+    return this
   }
 
-  apply(entityMap, entityType) {
-    if (!entityMap) return;
+  apply(entityMap: TSchemaEntityMap, entityType: string) {
+    Object.keys(entityMap).forEach(entityName => {
+      const entityValue: TSchemaEntity = entityMap[entityName]
 
-    Object.keys(entityMap).forEach((entityName) => {
-      const entityValue = entityMap[entityName];
+      invariant(
+        entityValue,
+        'GraphQLSchema: Failed to apply the %s `%s`. Expected entity to be an Object ' +
+          'of { type, resolvers, controller } shape, but got: %s',
+        entityType,
+        entityName,
+        entityValue
+      )
 
-      invariant(entityValue, 'GraphQLSchema: Failed to apply the %s `%s`. Expected entity to be an Object ' +
-        'of { type, resolver } shape, but got: %s', entityType, entityName, entityValue);
+      const { types, resolvers, controller } = entityValue
 
-      const { types, resolvers, controller } = entityValue;
+      invariant(
+        types,
+        'GraphQLSchema: Failed to apply the %s `%s`. Expected a valid type definition, but got: %s',
+        entityType,
+        entityName,
+        types
+      )
 
-      invariant(types, 'GraphQLSchema: Failed to apply the %s `%s`. Expected a valid type definition, but got: %s',
-        entityType, entityName, types);
-
-      this.applyTypeDef(types);
+      this.applyTypeDef(types)
 
       if (resolvers) {
-        this.resolvers.push(resolvers);
+        this.resolvers.push(resolvers)
       }
 
       if (controller) {
-        this.context[controller.name] = new controller();
+        this.context[controller.name] = new controller()
       }
-    });
+    })
 
-    return this;
+    return this
   }
 
-  applyTypeDef(typeDefs) {
+  applyTypeDef(typeDefs?: ITypedef | ITypedef[]) {
+    if (!isset(typeDefs)) {
+      return this
+    }
+
     if (Array.isArray(typeDefs)) {
       this.typeDefs.push(...typeDefs)
     } else {
-      this.typeDefs.push(typeDefs);
+      this.typeDefs.push(typeDefs)
     }
 
-    return this;
+    return this
   }
 }

@@ -1,11 +1,15 @@
 {
   "presets": [
-    ["env", {
-      "modules": false,
-      "target": {
-        "node": "current"
+    [
+      "env",
+      {
+        "modules": false,
+        "target": {
+          "node": "current"
+        }
       }
-    }]
+    ],
+    "flow"
   ],
   "plugins": [
     "transform-export-extensions",

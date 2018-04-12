@@ -1,1 +1,1 @@
-export UserRole from './UserRole.gql';
+export UserRole from './UserRole.gql'

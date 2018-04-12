@@ -1,4 +1,4 @@
-import { withAuthorization } from '@schema/middleware'
+import { withAuthorization } from '~/schema/middleware'
 
 export default {
   Query: {

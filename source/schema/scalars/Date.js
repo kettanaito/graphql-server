@@ -1,10 +1,10 @@
-import { GraphQLScalarType } from 'graphql';
-import gql from 'graphql-tag';
-import { invariant } from '@utils';
+import { GraphQLScalarType } from 'graphql'
+import gql from 'graphql-tag'
+import { invariant } from '~/utils'
 
 function validateDate(value) {
   // TODO Date validation?
-  return value;
+  return value
 }
 
 export default {
@@ -17,7 +17,7 @@ export default {
     serialize: validateDate,
     parseValue: validateDate,
     parseLiteral({ value }) {
-      return validateDate(value);
+      return validateDate(value)
     }
   })
-};
+}

@@ -1,17 +1,20 @@
-import { Controller } from '@classes'
-import { normalizeArtist } from './selectors'
+// @flow
+import { Controller } from '~/classes'
+import { normalizeArtist } from './normalize'
 
 export default class ArtistController extends Controller {
   url = 'https://itunes.apple.com/lookup'
 
-  getById(id) {
+  getById(id: string) {
     const params = {
       url: this.url,
       query: {
-        id
+        id,
+        entity: 'musicArtist'
       },
       transformResponse(res) {
-        return normalizeArtist(res.results[0])
+        const artistJson = res.results[0]
+        return normalizeArtist(artistJson)
       }
     }
 

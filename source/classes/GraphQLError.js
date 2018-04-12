@@ -1,20 +1,21 @@
-import ExtendableError from 'extendable-error';
+// @flow
+import ExtendableError from 'extendable-error'
 
 export default class GraphQLError extends ExtendableError {
-  constructor(errorCode, message) {
-    super(message);
-    this.errorCode = errorCode;
+  constructor(errorCode: string, message: string) {
+    super(message)
+    this.errorCode = errorCode
   }
 
-  serialize(originalError) {
-    const { errorCode, message } = this;
-    const { locations, path } = originalError;
+  serialize(originalError: GraphQLError) {
+    const { errorCode, message } = this
+    const { locations, path } = originalError
 
     return {
       errorCode,
       message,
       locations,
       path
-    };
+    }
   }
 }

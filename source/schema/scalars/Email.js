@@ -1,11 +1,15 @@
-import { GraphQLScalarType } from 'graphql';
-import gql from 'graphql-tag';
-import isEmail from 'validator/lib/isEmail';
-import { invariant } from '@utils';
+import { GraphQLScalarType } from 'graphql'
+import gql from 'graphql-tag'
+import isEmail from 'validator/lib/isEmail'
+import { invariant } from '~/utils'
 
 function validateEmail(value) {
-  invariant(isEmail(value), 'Invalid value for the `Email` scalar. Expected a valid email address, but got: %s', value);
-  return value;
+  invariant(
+    isEmail(value),
+    'Invalid value for the `Email` scalar. Expected a valid email address, but got: %s',
+    value
+  )
+  return value
 }
 
 export default {
@@ -18,7 +22,7 @@ export default {
     serialize: validateEmail,
     parseValue: validateEmail,
     parseLiteral({ value }) {
-      return validateEmail(value);
+      return validateEmail(value)
     }
   })
-};
+}
