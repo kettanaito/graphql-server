@@ -1,7 +1,0 @@
-// @flow
-export type Artist = {
-  id: number,
-  name: string,
-  genreId: number,
-  genreName: string
-}

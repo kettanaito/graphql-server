@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import isEmail from 'validator/lib/isEmail'
 import { invariant } from '~/utils'
 
-function validateEmail(value: string) {
+function validateEmail(value: mixed) {
   invariant(
     isEmail(value),
     'Invalid value for the `Email` scalar. Expected a valid email address, but got: %s',

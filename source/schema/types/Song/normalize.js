@@ -1,7 +1,7 @@
 // @flow
-import type { Song } from '~/schema/types/Song'
+import type { Song, SongResponse } from '~/schema/types/Song/types'
 
-export function normalizeSong(res: any): Song {
+export function normalizeSong(res: SongResponse): Song {
   return {
     title: res.trackName,
     price: res.trackPrice,

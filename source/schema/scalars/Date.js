@@ -4,7 +4,7 @@ import { GraphQLScalarType } from 'graphql'
 import gql from 'graphql-tag'
 import { invariant } from '~/utils'
 
-function validateDate(value) {
+function validateDate(value: mixed) {
   // TODO Date validation?
   return value
 }
