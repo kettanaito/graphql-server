@@ -1,10 +1,8 @@
 # graphql-server
 
-This repository is a good starting point for a real-world GraphQL server.
+This repository is designed to be a good starting point for a modern GraphQL Node server.
 
-## Why?
-
-There are multiple ways you can setup a server. How to know if the approach is efficient? Right, put it into production. The purpose of this repository is to provide a flexible production-proven architecture, which can serve as a stable basis for your GraphQL server.
+Apart from using industry-leading tools, it contributes to clean and maintainable architecture, which ensures best practices on writing and organizing server code. It also has the most essential configurations to grant great performance and uncompromised security to a server.
 
 ## Features
 
@@ -12,33 +10,20 @@ There are multiple ways you can setup a server. How to know if the approach is e
 
 * GraphiQL
 * Live reloading of GraphQL schema using webpack HMR
-* Jest as a testing framework
+* [Jest](https://facebook.github.io/jest/) as a testing framework
 
 ### Production
 
-* Security essentials by `helmet`
-* Seamless inter-types queries
-* Decoupled resolver-controller logic
+* Security essentials from [Helmet](https://github.com/helmetjs/helmet)
+* Seamless interdependent queries
 * Architecture ready for custom types, scalars, enums
+* Data-fetching logic decoupled from resolvers
 
 ## Commands
 
-### Launch webpack in development mode
-
-```bash
-npm start
-```
-
-### Run the server
-
-```bash
-npm run server
-```
-
-> The build must precede this command in order to have something to establish.
-
-### Build
-
-```bash
-npm run build
-```
+| Command name     | Description                          |
+| ---------------- | ------------------------------------ |
+| `npm start`      | Launches development server.         |
+| `npm test`       | Executes tests.                      |
+| `npm run build`  | Performs production build.           |
+| `npm run server` | Serves the current production build. |
