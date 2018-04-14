@@ -14,6 +14,20 @@
   "plugins": [
     "transform-export-extensions",
     "transform-object-rest-spread",
-    "transform-class-properties"
-  ]
+    "transform-class-properties",
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "alias": {
+          "~": "./source"
+        }
+      }
+    ]
+  ],
+  "env": {
+    "test": {
+      "plugins": ["transform-es2015-modules-commonjs"]
+    }
+  }
 }

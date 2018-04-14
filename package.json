@@ -10,8 +10,9 @@
   "main": "public/index.js",
   "scripts": {
     "start": "NODE_ENV=development webpack --watch",
-    "server": "nodemon public",
-    "flow": "flow",
+    "flow": "flow source/**/*.test.js",
+    "test": "jest",
+    "server": "node public",
     "build": "NODE_ENV=production webpack"
   },
   "husky": {
@@ -30,16 +31,20 @@
     "babel-loader": "^7.1.4",
     "babel-plugin-graphql-tag": "^1.5.0",
     "babel-plugin-inline-import-graphql-ast": "^2.3.1",
+    "babel-plugin-module-resolver": "^3.1.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-flow": "^6.23.0",
     "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
     "compression": "^1.7.2",
     "cors": "^2.8.4",
     "dataloader": "^1.4.0",
     "express": "^4.16.2",
+    "express-jwt": "^5.3.1",
     "extendable-error": "^0.1.5",
     "flow-bin": "^0.69.0",
     "graphql": "^0.13.1",
@@ -47,7 +52,7 @@
     "graphql-tools": "^2.21.0",
     "helmet": "^3.12.0",
     "husky": "^0.14.3",
-    "nodemon": "^1.17.1",
+    "jest": "^22.4.3",
     "normalizr": "^3.2.4",
     "prettier": "^1.11.1",
     "pretty-quick": "^1.4.1",
@@ -57,5 +62,7 @@
     "webpack": "^3.10.0",
     "webpack-node-externals": "^1.6.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "jsonwebtoken": "^8.2.1"
+  }
 }

@@ -9,7 +9,10 @@ const DEVELOPMENT = process.env.NODE_ENV === 'development'
 export default {
   target: 'node',
   entry: {
-    index: ['webpack/hot/signal', path.resolve(__dirname, packageJson.source)]
+    index: [
+      DEVELOPMENT && 'webpack/hot/signal',
+      path.resolve(__dirname, packageJson.source)
+    ].filter(Boolean)
   },
   externals: [
     nodeExternals({
@@ -37,14 +40,15 @@ export default {
     ]
   },
   plugins: [
-    new StartServerPlugin({
-      name: 'index.js',
-      signal: true
-    }),
-
     new webpack.EnvironmentPlugin({
       NODE_ENV: JSON.stringify(process.env.NODE_ENV)
     }),
+
+    DEVELOPMENT &&
+      new StartServerPlugin({
+        name: 'index.js',
+        signal: true
+      }),
 
     new webpack.NamedModulesPlugin(),
     DEVELOPMENT && new webpack.HotModuleReplacementPlugin(),
@@ -52,9 +56,7 @@ export default {
     new webpack.NoEmitOnErrorsPlugin()
   ].filter(Boolean),
   resolve: {
-    alias: {
-      '~': path.resolve(__dirname, 'source')
-    }
+    extensions: ['.flow.js', '.js']
   },
   devtool: 'sourcemap'
 }

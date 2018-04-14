@@ -1,0 +1,11 @@
+{
+  "rootDir": ["./source"],
+  "verbose": true,
+  "collectCoverage": true,
+  "globals": {
+    "NODE_ENV": "test"
+  },
+  "moduleNameMapper": {
+    "~(.*)$": "<rootDir>/source/$1"
+  }
+}
