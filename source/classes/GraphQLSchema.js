@@ -4,17 +4,17 @@ import type { ITypedef } from 'graphql-tools/dist/Interfaces'
 import Controller from './Controller'
 import { isset, invariant } from '~/utils'
 
-type TSchemaEntity = {
+export type TSchemaEntity = {
   types: DocumentNode,
   resolvers: Object,
   controller: typeof Controller
 }
 
-type TSchemaEntityMap = {
+export type TSchemaEntityMap = {
   [entityName: string]: TSchemaEntity
 }
 
-type TSchemaOptions = {
+export type TSchemaOptions = {
   enums?: DocumentNode[],
   scalars?: TSchemaEntityMap,
   types?: TSchemaEntityMap

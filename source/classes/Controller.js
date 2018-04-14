@@ -1,14 +1,12 @@
 // @flow
-import { AxiosInstance, AxiosRequestConfig } from 'axios'
-
+import type { AxiosInstance, AxiosRequestConfig } from 'axios'
 import axios from 'axios'
 import DataLoader from 'dataloader'
 import { normalize } from 'normalizr'
 import urlUtils from 'url'
 
-type TRequestConfig = {
-  method?: string,
-  pathname: string
+const defaultRedConfig = {
+  method: 'GET'
 }
 
 const defaultReqParams = {
@@ -30,8 +28,8 @@ export default class Controller {
      * Create an instance of DataLoader to batch the controller-specific requests.
      * https://github.com/facebook/dataloader
      */
-    this.loader = new DataLoader(reqParamsCollection => {
-      return Promise.all(reqParamsCollection.map(this.fetch.bind(this)))
+    this.loader = new DataLoader(reqOptionsList => {
+      return Promise.all(reqOptionsList.map(this.fetch.bind(this)))
     })
 
     return this
@@ -48,13 +46,15 @@ export default class Controller {
   }
 
   request(options: AxiosRequestConfig) {
+    const endOptions = Object.assign({}, defaultRedConfig, options)
+
     const {
       method,
       url: pathname,
       query,
       transformResponse,
       ...restOptions
-    } = options
+    } = endOptions
 
     const url = urlUtils.format({ pathname, query })
 
@@ -76,7 +76,7 @@ export default class Controller {
     return this.fetch(reqParams)
   }
 
-  normalize(response: any, schema: any) {
-    return normalize(response, schema)
+  normalize(data: any, schema: any) {
+    return normalize(data, schema)
   }
 }

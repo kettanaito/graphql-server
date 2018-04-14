@@ -1,6 +1,6 @@
 type User {
   id: ID!
-  role: USER_ROLE!
+  role: UserRole!
   email: Email!
   password: String!
   createdAt: Date!

@@ -1,3 +1,5 @@
+// @flow
+import type { ValueNode } from 'graphql'
 import { GraphQLScalarType } from 'graphql'
 import gql from 'graphql-tag'
 import { invariant } from '~/utils'
@@ -16,7 +18,7 @@ export default {
     description: 'Date',
     serialize: validateDate,
     parseValue: validateDate,
-    parseLiteral({ value }) {
+    parseLiteral({ value }: any) {
       return validateDate(value)
     }
   })

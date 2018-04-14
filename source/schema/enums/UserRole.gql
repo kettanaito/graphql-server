@@ -1,7 +1,7 @@
 """
 User role defines the permission of a user to perform certain operations.
 """
-enum USER_ROLE {
+enum UserRole {
   "Unauthenticated user. Capable of requesting general data. Cannot edit anything."
   VISITOR
 

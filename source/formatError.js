@@ -1,7 +1,11 @@
+// @flow
 import { GraphQLError } from '~/classes'
 
-export default function formatError(error, returnNull = false) {
-  const originalError = error.originalError
+export default function formatError(
+  error: GraphQLError,
+  returnNull: boolean = false
+) {
+  const originalError: GraphQLError = error.originalError
 
   if (originalError instanceof GraphQLError) {
     return originalError.serialize(error)

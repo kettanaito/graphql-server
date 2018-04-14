@@ -1,15 +1,10 @@
+// @flow
 import { GraphQLSchema } from '~/classes'
-
-/* Enums */
 import { UserRole } from './enums'
-
-/* Scalars */
 import { Date, Email } from './scalars'
-
-/* Types */
 import { Query, User, Post, Artist, Song } from './types'
 
-export default new GraphQLSchema({
+const schema: GraphQLSchema = new GraphQLSchema({
   enums: [UserRole],
   scalars: {
     Date,
@@ -24,3 +19,5 @@ export default new GraphQLSchema({
     Song
   }
 })
+
+export default schema
