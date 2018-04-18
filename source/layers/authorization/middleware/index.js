@@ -1,0 +1,1 @@
+export withAuthorization from './withAuthorization'

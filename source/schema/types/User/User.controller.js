@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import { Controller } from '~/classes'
+import secret from '~/layers/authentication/secret.json'
 import mockedData from '~/data'
 
 export default class UserController extends Controller {
