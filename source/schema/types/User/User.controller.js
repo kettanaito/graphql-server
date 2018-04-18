@@ -16,7 +16,7 @@ export default class UserController extends Controller {
       {
         role: 'EDITOR'
       },
-      (secret: 'foo')
+      'foo'
     )
 
     return {
