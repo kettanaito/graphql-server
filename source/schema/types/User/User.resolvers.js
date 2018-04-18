@@ -1,6 +1,15 @@
-import { withAuthorization } from '~/schema/middleware'
+import { withAuthorization } from '~/layers/authorization/middleware'
 
 export default {
+  User: {
+    password() {
+      const canQuery = permit(user).when(isOwner);
+
+      return withAuthorization(canQuery)((root, args, context, info) => {
+        return root.password
+      })
+    }
+  },
   Query: {
     login(root, args, context) {
       return context.UserController.login(args)
@@ -10,15 +19,6 @@ export default {
     },
     user(root, args, context) {
       return context.UserController.getUser(args)
-    }
-  },
-  User: {
-    password() {
-      return withAuthorization(['PERMISSIONS_HERE'])(
-        (root, args, context, info) => {
-          return root.password
-        }
-      )
     }
   }
 }
