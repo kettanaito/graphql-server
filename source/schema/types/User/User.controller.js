@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken'
 import { Controller } from '~/classes'
 import mockedData from '~/data'
-import secret from '~/layers/authentication/secret.json'
 
 export default class UserController extends Controller {
   login(args) {
@@ -17,7 +16,7 @@ export default class UserController extends Controller {
       {
         role: 'EDITOR'
       },
-      secret
+      (secret: 'foo')
     )
 
     return {
