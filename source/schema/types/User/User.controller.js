@@ -13,12 +13,7 @@ export default class UserController extends Controller {
     // 3. if yes, compare encoded password from db with the provided password (bencrypt?)
     // 4. if match, send the token
 
-    const token = jwt.sign(
-      {
-        role: 'EDITOR'
-      },
-      (secret: 'foo')
-    )
+    const token = jwt.sign({ role: 'EDITOR' }, 'foo')
 
     return {
       token,
