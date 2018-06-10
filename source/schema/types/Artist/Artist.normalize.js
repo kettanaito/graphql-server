@@ -5,7 +5,8 @@ export function normalizeArtist(res: ArtistResponse): Artist {
   return {
     id: res.artistId,
     name: res.artistName,
-    genreId: res.collectionId,
-    genreName: res.primaryGenreName
+    genreId: res.primaryGenreId,
+    genreName: res.primaryGenreName,
+    artistLinkUrl: res.artistLinkUrl,
   }
 }

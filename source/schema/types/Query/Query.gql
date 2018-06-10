@@ -1,4 +1,2 @@
 # Root Query
-type Query {
-  search(term: String!): [Song!]
-}
+type Query

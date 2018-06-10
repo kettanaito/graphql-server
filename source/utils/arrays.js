@@ -5,6 +5,6 @@
  * @param {number} first
  * @returns {any[]}
  */
-export function takeFirst(array: any[], first: number) {
+export default function takeFirst(array: any[], first: number) {
   return array.slice(0, first)
 }

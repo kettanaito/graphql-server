@@ -1,23 +1,23 @@
 // @flow
 import { GraphQLSchema } from '~/classes'
-import { UserRole } from './enums'
+import { SearchMediaType, SearchEntityType } from './enums'
 import { Date, Email } from './scalars'
-import { Query, User, Post, Artist, Song } from './types'
+import { Query, Album, Artist, Song, Search } from './types'
 
 const schema: GraphQLSchema = new GraphQLSchema({
-  enums: [UserRole],
+  enums: [SearchMediaType, SearchEntityType],
   scalars: {
     Date,
-    Email
+    Email,
   },
   types: {
     Query,
-    Post,
-    User,
 
+    Search,
     Artist,
-    Song
-  }
+    Album,
+    Song,
+  },
 })
 
 export default schema

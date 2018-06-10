@@ -1,6 +1,5 @@
 export * as Query from './Query'
-export * as User from './User'
-export * as Post from './Post'
-
+export * as Search from './Search'
 export * as Artist from './Artist'
+export * as Album from './Album'
 export * as Song from './Song'

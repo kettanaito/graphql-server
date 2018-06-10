@@ -6,7 +6,7 @@ export type Artist = {
   id: number,
   name: string,
   genreId: number,
-  genreName: string
+  genreName: string,
 }
 
 /**
@@ -17,5 +17,6 @@ export type ArtistResponse = {
   artistId: number,
   artistName: string,
   collectionId: number,
-  primaryGenreName: string
+  primaryGenreName: string,
+  primaryGenreId: number,
 }

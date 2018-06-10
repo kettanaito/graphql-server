@@ -1,10 +1,12 @@
 type Artist {
   id: ID!
   name: String!
-  genreId: ID
+  genreId: ID!
   genreName: String
+  artistLinkUrl: String
+  coverImageUrl(size: Int!, quality: String): String
 }
 
 extend type Query {
-  artist(id: ID!): Artist!
+  artist(id: ID, slug: String): Artist
 }

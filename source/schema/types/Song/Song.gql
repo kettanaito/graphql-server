@@ -1,9 +1,17 @@
 type Song {
-  artistId: ID!
-  artist: Artist!
+  id: ID!
+  trackNumber: Int!
   title: String!
-  country: String
-  releaseDate: Date
+  duration: Int!
   explicit: Boolean!
   price: Float
+  releaseDate: Date
+  albumId: ID!
+  artistId: ID!
+  artist: Artist!
+  country: String
+}
+
+extend type Query {
+  songs(albumId: ID!): [Song]
 }

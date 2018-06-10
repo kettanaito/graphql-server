@@ -1,0 +1,8 @@
+enum SearchEntityType {
+  song
+  album
+  musicArtist
+  musicTrack
+  musicVideo
+  mix
+}

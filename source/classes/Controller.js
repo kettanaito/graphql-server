@@ -5,14 +5,14 @@ import DataLoader from 'dataloader'
 import { normalize } from 'normalizr'
 import urlUtils from 'url'
 
-const defaultRedConfig = {
-  method: 'GET'
+const defaultReqConfig = {
+  method: 'GET',
 }
 
 const defaultReqParams = {
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 }
 
 export default class Controller {
@@ -46,7 +46,7 @@ export default class Controller {
   }
 
   request(options: AxiosRequestConfig) {
-    const endOptions = Object.assign({}, defaultRedConfig, options)
+    const endOptions = Object.assign({}, defaultReqConfig, options)
 
     const {
       method,
@@ -57,17 +57,19 @@ export default class Controller {
     } = endOptions
 
     const url = urlUtils.format({ pathname, query })
+    const concatenatedTransformers = axios.defaults.transformResponse
+      .concat(transformResponse)
+      .filter(Boolean)
 
     const reqParams = {
       method,
       url,
-      transformResponse: [].concat(
-        axios.defaults.transformResponse,
-        transformResponse
-      ),
+      transformResponse: concatenatedTransformers,
       ...defaultReqParams,
-      ...restOptions
+      ...restOptions,
     }
+
+    console.log('request:', reqParams)
 
     if (method === 'GET') {
       return this.loader.load(reqParams)

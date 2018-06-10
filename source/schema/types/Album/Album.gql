@@ -1,0 +1,23 @@
+type Album {
+  id: ID!
+  title: String!
+  artist: Artist!
+  artistId: ID!
+  releaseDate: Date!
+  explicit: Boolean
+  price: Float
+  trackCount: Int
+  songs: [Song!]
+  thumbnailBaseUrl: String
+  thumbnail(size: Int!): String!
+  country: String
+  copyright: String
+}
+
+extend type Query {
+  # Returns an album by its ID
+  album(id: ID!, entity: SearchEntityType = album): Album
+
+  # Returns the list of albums for the user by user ID
+  albums(artistId: ID!, entity: SearchEntityType = album, limit: Int): [Album]
+}

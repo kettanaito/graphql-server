@@ -2,6 +2,9 @@
 import ExtendableError from 'extendable-error'
 
 export default class GraphQLError extends ExtendableError {
+  errorCode: string
+  message: string
+
   constructor(errorCode: string, message: string) {
     super(message)
     this.errorCode = errorCode
@@ -15,7 +18,7 @@ export default class GraphQLError extends ExtendableError {
       errorCode,
       message,
       locations,
-      path
+      path,
     }
   }
 }

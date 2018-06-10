@@ -1,0 +1,17 @@
+union MixedResults = Artist | Album
+
+extend type Query {
+  search(
+    media: SearchMediaType
+    entity: SearchEntityType
+    term: String!
+    limit: Int
+  ): [MixedResults]
+
+  lookup(
+    id: ID
+    term: String
+    entity: SearchEntityType
+    limit: Int
+  ): MixedResults
+}
