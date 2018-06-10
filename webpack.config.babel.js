@@ -11,6 +11,7 @@ export default {
   entry: {
     index: [
       DEVELOPMENT && 'webpack/hot/signal',
+      'regenerator-runtime/runtime',
       path.resolve(__dirname, packageJson.source)
     ].filter(Boolean)
   },
