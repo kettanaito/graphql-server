@@ -5,11 +5,11 @@ import gql from 'graphql-tag'
 import isEmail from 'validator/lib/isEmail'
 import { invariant } from '~/utils'
 
-function validateEmail(value: mixed) {
+function validateEmail({ value }: { value: mixed }) {
   invariant(
     isEmail(value),
     'Invalid value for the `Email` scalar. Expected a valid email address, but got: %s',
-    value
+    value,
   )
   return value
 }
@@ -23,8 +23,6 @@ export default {
     description: 'E-mail address',
     serialize: validateEmail,
     parseValue: validateEmail,
-    parseLiteral({ value }: any) {
-      return validateEmail(value)
-    }
-  })
+    parseLiteral: validateEmail,
+  }),
 }

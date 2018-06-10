@@ -4,7 +4,7 @@ import { GraphQLScalarType } from 'graphql'
 import gql from 'graphql-tag'
 import { invariant } from '~/utils'
 
-function validateDate(value: mixed) {
+function validateDate({ value }: { value: mixed }) {
   // TODO Date validation?
   return value
 }
@@ -18,8 +18,6 @@ export default {
     description: 'Date',
     serialize: validateDate,
     parseValue: validateDate,
-    parseLiteral({ value }: any) {
-      return validateDate(value)
-    }
-  })
+    parseLiteral: validateDate,
+  }),
 }
