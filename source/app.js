@@ -6,10 +6,9 @@ import compression from 'compression'
 import bodyParser from 'body-parser'
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import { makeExecutableSchema } from 'graphql-tools'
+import { GRAPHQL_ENDPOINT } from './config'
 import schema from './schema'
 import formatError from './formatError'
-
-const GRAPHQL_ENDPOINT = '/'
 
 const app = express()
 app.use(cors())
@@ -23,21 +22,19 @@ if (process.env.NODE_ENV === 'development') {
   app.use(
     '/graphiql',
     graphiqlExpress({
-      endpointURL: GRAPHQL_ENDPOINT
-    })
+      endpointURL: GRAPHQL_ENDPOINT,
+    }),
   )
 }
 
 app.use(
   GRAPHQL_ENDPOINT,
   bodyParser.json(),
-  graphqlExpress(req => {
-    return {
-      schema: makeExecutableSchema(schema),
-      context: schema.context,
-      formatError
-    }
-  })
+  graphqlExpress(() => ({
+    schema: makeExecutableSchema(schema),
+    context: schema.context,
+    formatError,
+  })),
 )
 
 export default app
