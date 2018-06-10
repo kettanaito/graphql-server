@@ -1,4 +1,7 @@
 node_modules
+.vscode
 .awcache
 public
 deprecated
+internal
+__*
