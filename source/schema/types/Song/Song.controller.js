@@ -1,3 +1,4 @@
+// @flow
 import { drop, map } from 'ramda'
 import { Controller } from '~/classes'
 import { arrayUtils } from '~/utils'

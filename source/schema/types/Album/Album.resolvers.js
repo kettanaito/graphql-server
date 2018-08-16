@@ -2,23 +2,23 @@ import { getThumbnailUrl } from '~/utils'
 
 export default {
   Query: {
-    album(root, args, context) {
+    album(album, args, context) {
       return context.AlbumController.getById(args, context)
     },
-    albums(root, args, context) {
+    albums(album, args, context) {
       return context.AlbumController.getAlbumsByArtist(args, context)
     },
   },
   Album: {
-    artist(root, args, context) {
-      return context.ArtistController.getById(root.artistId, context)
+    artist(album, args, context) {
+      return context.ArtistController.getById(album.artistId, context)
     },
-    songs(root, args, context) {
-      return context.SongController.getByAlbumId(root.id, context)
+    songs(album, args, context) {
+      return context.SongController.getByAlbumId(album.id, context)
     },
-    thumbnail(root, args, context) {
+    thumbnail(album, args, context) {
       const { size, quality } = args
-      return getThumbnailUrl(root.thumbnailBaseUrl, size, quality)
+      return getThumbnailUrl(album.thumbnailBaseUrl, size, quality)
     },
   },
 }
