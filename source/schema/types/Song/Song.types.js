@@ -8,7 +8,7 @@ export type Song = {
   releaseDate?: Date,
   artistId: number,
   artist?: Artist,
-  country?: string
+  country?: string,
 }
 
 /**
@@ -19,5 +19,5 @@ export type SongResponse = {
   trackPrice: number,
   explicit: boolean,
   artistId: number,
-  country: string
+  country: string,
 }

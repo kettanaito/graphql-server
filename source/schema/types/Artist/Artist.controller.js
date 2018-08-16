@@ -1,19 +1,20 @@
 // @flow
+import type { Artist } from './Artist.types'
 import { head } from 'ramda'
 import metafetch from 'metafetch'
 import { Controller } from '~/classes'
-import { normalizeArtist } from './Artist.normalize'
 import { getThumbnailUrl } from '~/utils'
+import { normalizeArtist } from './Artist.normalize'
 
 export default class ArtistController extends Controller {
-  getById(id, context) {
+  getById(id, context): Artist {
     const params = {
       url: context.SearchController.lookupUrl,
       query: {
         id,
         entity: 'musicArtist',
       },
-      transformResponse(res) {
+      transformResponse: (res) => {
         const artistJson = head(res.results)
         return normalizeArtist(artistJson)
       },
@@ -22,7 +23,7 @@ export default class ArtistController extends Controller {
     return this.request(params)
   }
 
-  getBySlug({ slug }, context: Object) {
+  getBySlug({ slug }, context): Artist {
     const params = {
       url: context.SearchController.searchUrl,
       query: {
@@ -30,7 +31,7 @@ export default class ArtistController extends Controller {
         entity: 'musicArtist',
         limit: 1,
       },
-      transformResponse(res) {
+      transformResponse: (res) => {
         const artistJson = head(res.results)
         return normalizeArtist(artistJson)
       },
@@ -39,7 +40,7 @@ export default class ArtistController extends Controller {
     return this.request(params)
   }
 
-  getCoverImageUrl(root, args) {
+  getCoverImageUrl(root, args): string {
     return new Promise((resolve, reject) => {
       const { artistLinkUrl } = root
 

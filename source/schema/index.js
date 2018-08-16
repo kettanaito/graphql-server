@@ -12,7 +12,6 @@ const schema: GraphQLSchema = new GraphQLSchema({
   },
   types: {
     Query,
-
     Search,
     Artist,
     Album,
