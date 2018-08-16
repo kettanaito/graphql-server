@@ -1,24 +1,37 @@
+// @flow
+import type { Artist } from '~/schema/types/Artist/Artist.types'
+import type { Song } from '~/schema/types/Song/Song.types'
+import type { Album } from './Album.types'
 import { getThumbnailUrl } from '~/utils'
 
 export default {
   Query: {
-    album(root, args, context) {
-      return context.AlbumController.getById(args, context)
+    album(album: Album, args, context): Album {
+      return context.AlbumController.getById({ id: args.id, context })
     },
-    albums(root, args, context) {
-      return context.AlbumController.getAlbumsByArtist(args, context)
+    albums(album: Album, args, context): Album[] {
+      return context.AlbumController.getAlbumsByArtist({
+        artistId: args.artistId,
+        context,
+      })
     },
   },
   Album: {
-    artist(root, args, context) {
-      return context.ArtistController.getById(root.artistId, context)
+    artist(album: Album, args, context): Artist {
+      return context.ArtistController.getById({
+        artistId: album.artistId,
+        context,
+      })
     },
-    songs(root, args, context) {
-      return context.SongController.getByAlbumId(root.id, context)
+    songs(album: Album, args, context): Song[] {
+      return context.SongController.getByAlbumId({ albumId: album.id, context })
     },
-    thumbnail(root, args, context) {
-      const { size, quality } = args
-      return getThumbnailUrl(root.thumbnailBaseUrl, size, quality)
+    thumbnail(album: Album, args, context): string {
+      return getThumbnailUrl({
+        originUrl: album.thumbnailBaseUrl,
+        size: args.size,
+        quality: args.quality,
+      })
     },
   },
 }

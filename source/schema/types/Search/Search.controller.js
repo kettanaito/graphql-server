@@ -1,3 +1,5 @@
+// @flow
+import { head, map } from 'ramda'
 import { Controller } from '~/classes'
 import { normalizeSearchResults } from './Search.normalize'
 
@@ -12,12 +14,11 @@ export default class SearchController extends Controller {
         media,
         entity,
         term,
-        limit
+        limit,
       },
-      transformResponse(res) {
-        console.log(res.results[0])
-        return res.results.map(normalizeSearchResults)
-      }
+      transformResponse: (res) => {
+        return map(normalizeSearchResults, res.results)
+      },
     }
 
     return this.request(params)
@@ -29,12 +30,12 @@ export default class SearchController extends Controller {
       query: {
         id,
         entity,
-        limit
+        limit,
       },
-      transformResponse(res) {
-        const json = res.results[0]
-        return normalizeSearchResults(json)
-      }
+      transformResponse: (res) => {
+        const resultJson = head(res.results)
+        return normalizeSearchResults(resultJson)
+      },
     }
 
     return this.request(params)

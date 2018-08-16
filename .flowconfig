@@ -1,3 +1,6 @@
+[include]
+./source
+
 [options]
 module.file_ext=.flow.js
 module.name_mapper='^~' ->'<PROJECT_ROOT>/source'

@@ -1,23 +1,27 @@
+// @flow
+import type { Album } from './Album.types'
+import { head, drop, map } from 'ramda'
 import { Controller } from '~/classes'
 import { normalizeAlbum } from './Album.normalize'
 
 export default class AlbumController extends Controller {
-  getById({ id }, context) {
+  getById({ albumId, context }): Album {
     const params = {
       url: context.SearchController.lookupUrl,
       query: {
-        id,
+        id: albumId,
         limit: 1,
       },
-      transformResponse(res) {
-        return normalizeAlbum(res.results[0])
+      transformResponse: (res) => {
+        const albumJson = head(res.results)
+        return normalizeAlbum(albumJson)
       },
     }
 
     return this.request(params)
   }
 
-  getAlbumsByArtist({ artistId, entity = 'album', limit }, context) {
+  getAlbumsByArtist({ artistId, limit, entity = 'album', context }): Album[] {
     const params = {
       url: context.SearchController.lookupUrl,
       query: {
@@ -25,9 +29,9 @@ export default class AlbumController extends Controller {
         entity,
         limit,
       },
-      transformResponse(res) {
-        const albumsJson = res.results && res.results.slice(1)
-        return albumsJson.map(normalizeAlbum)
+      transformResponse: (res) => {
+        const albumsJson = drop(1, res.results)
+        return map(normalizeAlbum, albumsJson)
       },
     }
 

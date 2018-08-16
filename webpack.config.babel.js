@@ -4,7 +4,9 @@ import nodeExternals from 'webpack-node-externals'
 import StartServerPlugin from 'start-server-webpack-plugin'
 import packageJson from './package.json'
 
-const DEVELOPMENT = process.env.NODE_ENV === 'development'
+const nodeEnv = process.env.NODE_ENV
+const DEVELOPMENT = nodeEnv === 'development'
+const PRODUCTION = nodeEnv === 'production'
 
 export default {
   target: 'node',
@@ -12,17 +14,17 @@ export default {
     index: [
       DEVELOPMENT && 'webpack/hot/signal',
       'regenerator-runtime/runtime',
-      path.resolve(__dirname, packageJson.source)
-    ].filter(Boolean)
+      path.resolve(__dirname, packageJson.source),
+    ].filter(Boolean),
   },
   externals: [
     nodeExternals({
-      whitelist: ['webpack/hot/signal']
-    })
+      whitelist: ['webpack/hot/signal'],
+    }),
   ],
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: '[name].js'
+    filename: '[name].js',
   },
   module: {
     rules: [
@@ -30,34 +32,38 @@ export default {
         test: /\.js$/,
         include: path.resolve(__dirname, 'source'),
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: ['babel-loader'],
       },
       {
         test: /\.gql$/,
         include: path.resolve(__dirname, 'source'),
         exclude: /node_modules/,
-        use: ['graphql-tag/loader']
-      }
-    ]
+        use: ['graphql-tag/loader'],
+      },
+    ],
   },
   plugins: [
     new webpack.EnvironmentPlugin({
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+      NODE_ENV: JSON.stringify(nodeEnv),
+    }),
+    new webpack.DefinePlugin({
+      __DEV__: DEVELOPMENT,
+      __PROD__: PRODUCTION,
     }),
 
     DEVELOPMENT &&
       new StartServerPlugin({
         name: 'index.js',
-        signal: true
+        signal: true,
       }),
 
     new webpack.NamedModulesPlugin(),
     DEVELOPMENT && new webpack.HotModuleReplacementPlugin(),
 
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
   ].filter(Boolean),
   resolve: {
-    extensions: ['.flow.js', '.js']
+    extensions: ['.flow.js', '.js'],
   },
-  devtool: 'sourcemap'
+  devtool: 'sourcemap',
 }

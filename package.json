@@ -10,8 +10,8 @@
   "main": "public/index.js",
   "scripts": {
     "start": "NODE_ENV=development webpack --watch",
-    "flow": "flow source/**/*.test.js",
-    "test": "jest",
+    "flow": "flow",
+    "test": "jest source/**/*.test.js",
     "server": "node public",
     "build": "NODE_ENV=production webpack"
   },
@@ -40,6 +40,7 @@
     "babel-preset-flow": "^6.23.0",
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
+    "chalk": "^2.4.1",
     "compression": "^1.7.2",
     "cors": "^2.8.4",
     "dataloader": "^1.4.0",

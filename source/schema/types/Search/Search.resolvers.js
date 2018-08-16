@@ -1,10 +1,10 @@
 export default {
   Query: {
-    search(root, args, context) {
+    search(searchResults, args, context) {
       return context.SearchController.search(args)
     },
-    lookup(root, args, context) {
+    lookup(searchResults, args, context) {
       return context.SearchController.lookup(args)
-    }
-  }
+    },
+  },
 }

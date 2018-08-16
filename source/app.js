@@ -12,10 +12,11 @@ import schema from './schema'
 import formatError from './formatError'
 
 const app = express()
+
 app.use(cors())
 app.use(helmet())
 
-if (process.env.NODE_ENV === 'production') {
+if (__PROD__) {
   app.use(
     new RateLimit({
       windowMs: RATE_LIMIT.WINDOW,
@@ -26,7 +27,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(compression())
 }
 
-if (process.env.NODE_ENV === 'development') {
+if (__DEV__) {
   app.use(
     '/graphiql',
     graphiqlExpress({

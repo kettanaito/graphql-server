@@ -1,12 +1,22 @@
+// @flow
+import { Artist } from '~/schema/types/Artist/Artist.types'
+import { Song } from './Song.types'
+
 export default {
   Query: {
-    songs(root, args, context) {
-      return context.SongController.getByAlbumId(args.albumId, context)
+    songs(song: Song, args, context): Song[] {
+      return context.SongController.getByAlbumId({
+        albumId: args.albumId,
+        context,
+      })
     },
   },
   Song: {
-    artist(root, args, context) {
-      return context.ArtistController.getById(root.artistId, context)
+    artist(song: Song, args, context): Artist {
+      return context.ArtistController.getById({
+        artistId: song.artistId,
+        context,
+      })
     },
   },
 }

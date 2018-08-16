@@ -1,3 +1,5 @@
+// @flow
+import type { Song } from './Song.types'
 import { drop, map } from 'ramda'
 import { Controller } from '~/classes'
 import { arrayUtils } from '~/utils'
@@ -7,7 +9,7 @@ export default class SongController extends Controller {
   searchUrl = 'https://itunes.apple.com/search'
   normalizeSongs = map(normalizeSong)
 
-  getByTerm({ term, first }) {
+  getByTerm({ term, first }): Song {
     const params = {
       url: this.searchUrl,
       query: {
@@ -21,7 +23,7 @@ export default class SongController extends Controller {
     return this.request(params)
   }
 
-  getByAlbumId(albumId, context) {
+  getByAlbumId({ albumId, context }): Song {
     const params = {
       url: context.SearchController.lookupUrl,
       query: {
