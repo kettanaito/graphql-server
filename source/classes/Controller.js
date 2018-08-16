@@ -28,7 +28,7 @@ export default class Controller {
      * Create an instance of DataLoader to batch the controller-specific requests.
      * https://github.com/facebook/dataloader
      */
-    this.loader = new DataLoader(reqOptionsList => {
+    this.loader = new DataLoader((reqOptionsList) => {
       return Promise.all(reqOptionsList.map(this.fetch.bind(this)))
     })
 
@@ -37,10 +37,10 @@ export default class Controller {
 
   fetch(options: AxiosRequestConfig) {
     return this.axios(options)
-      .then(response => {
+      .then((response) => {
         return response.data
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(error)
       })
   }
@@ -68,8 +68,6 @@ export default class Controller {
       ...defaultReqParams,
       ...restOptions,
     }
-
-    console.log('request:', reqParams)
 
     if (method === 'GET') {
       return this.loader.load(reqParams)

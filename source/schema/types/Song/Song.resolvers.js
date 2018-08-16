@@ -5,12 +5,18 @@ import { Song } from './Song.types'
 export default {
   Query: {
     songs(song: Song, args, context): Song[] {
-      return context.SongController.getByAlbumId(args.albumId, context)
+      return context.SongController.getByAlbumId({
+        albumId: args.albumId,
+        context,
+      })
     },
   },
   Song: {
     artist(song: Song, args, context): Artist {
-      return context.ArtistController.getById(song.artistId, context)
+      return context.ArtistController.getById({
+        artistId: song.artistId,
+        context,
+      })
     },
   },
 }

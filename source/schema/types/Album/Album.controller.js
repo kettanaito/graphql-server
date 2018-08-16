@@ -5,11 +5,11 @@ import { Controller } from '~/classes'
 import { normalizeAlbum } from './Album.normalize'
 
 export default class AlbumController extends Controller {
-  getById({ id }, context): Album {
+  getById({ albumId, context }): Album {
     const params = {
       url: context.SearchController.lookupUrl,
       query: {
-        id,
+        id: albumId,
         limit: 1,
       },
       transformResponse: (res) => {
@@ -21,7 +21,7 @@ export default class AlbumController extends Controller {
     return this.request(params)
   }
 
-  getAlbumsByArtist({ artistId, entity = 'album', limit }, context): Album[] {
+  getAlbumsByArtist({ artistId, limit, entity = 'album', context }): Album[] {
     const params = {
       url: context.SearchController.lookupUrl,
       query: {

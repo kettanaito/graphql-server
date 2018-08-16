@@ -12,13 +12,17 @@ type ParsedUrl = {
   query?: Object,
 }
 
-export default function getThumbnailUrl(
-  baseUrl: string,
+export default function getThumbnailUrl({
+  originUrl,
+  size,
+  quality = 'bb',
+}: {
+  originUrl: string,
   size: string,
-  quality: string = 'bb',
-): string {
+  quality: string,
+}): string {
   const expectedDimensions = `${size}x${size}${quality}`
-  const parsedUrl: ParsedUrl = urlUtils.parse(baseUrl)
+  const parsedUrl: ParsedUrl = urlUtils.parse(originUrl)
 
   return parsedUrl.href.replace(/(?!=\/)(\w+)(?=\.\w+$)/gi, expectedDimensions)
 }

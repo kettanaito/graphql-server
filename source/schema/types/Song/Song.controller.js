@@ -23,7 +23,7 @@ export default class SongController extends Controller {
     return this.request(params)
   }
 
-  getByAlbumId(albumId: number, context): Song {
+  getByAlbumId({ albumId, context }): Song {
     const params = {
       url: context.SearchController.lookupUrl,
       query: {
