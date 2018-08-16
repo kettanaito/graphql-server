@@ -10,7 +10,6 @@ export default class AlbumController extends Controller {
         limit: 1,
       },
       transformResponse(res) {
-        console.log('res:', res)
         return normalizeAlbum(res.results[0])
       },
     }
@@ -18,7 +17,7 @@ export default class AlbumController extends Controller {
     return this.request(params)
   }
 
-  getAlbumsByArtist({ artistId, entity, limit }, context) {
+  getAlbumsByArtist({ artistId, entity = 'album', limit }, context) {
     const params = {
       url: context.SearchController.lookupUrl,
       query: {
@@ -27,8 +26,7 @@ export default class AlbumController extends Controller {
         limit,
       },
       transformResponse(res) {
-        const albumsJson =
-          res.results && res.results.slice(1, res.results.length)
+        const albumsJson = res.results && res.results.slice(1)
         return albumsJson.map(normalizeAlbum)
       },
     }

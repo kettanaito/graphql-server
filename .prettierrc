@@ -3,5 +3,6 @@
   "semi": false,
   "trailingComma": "all",
   "bracketSpacing": true,
-  "useTabs": false
+  "useTabs": false,
+  "arrowParens": "always"
 }

@@ -1,4 +1,4 @@
-import { formatThumbnailUrl } from '~/utils'
+import { getThumbnailUrl } from '~/utils'
 
 export default {
   Query: {

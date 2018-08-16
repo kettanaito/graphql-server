@@ -2,7 +2,7 @@
 import metafetch from 'metafetch'
 import { Controller } from '~/classes'
 import { normalizeArtist } from './Artist.normalize'
-import { formatThumbnailUrl } from '~/utils'
+import { getThumbnailUrl } from '~/utils'
 
 export default class ArtistController extends Controller {
   getById(id, context) {
@@ -13,6 +13,7 @@ export default class ArtistController extends Controller {
         entity: 'musicArtist',
       },
       transformResponse(res) {
+        console.log('arist res:', res)
         const artistJson = res.results[0]
         console.log('artistJson:', artistJson)
         return normalizeArtist(artistJson)

@@ -58,6 +58,7 @@
     "normalizr": "^3.2.4",
     "prettier": "^1.11.1",
     "pretty-quick": "^1.4.1",
+    "ramda": "^0.25.0",
     "start-server-webpack-plugin": "^2.2.5",
     "url": "^0.11.0",
     "validator": "^9.4.1",

@@ -1,17 +1,17 @@
 // @flow
-import type { Song, SongResponse } from '~/schema/types/Song/types'
+import { compose } from 'ramda'
+import { rename, renameWith } from '~/utils'
 
-export function normalizeSong(res: SongResponse): Song {
-  return {
-    id: res.trackId,
-    trackNumber: res.trackNumber,
-    title: res.trackName,
-    price: res.trackPrice,
-    duration: res.trackTimeMillis,
-    explicit: res.collectionExplicitness === 'explicit',
-    artistId: res.artistId,
-    albumId: res.collectionId,
-    price: res.collectionPrice,
-    country: res.country,
-  }
-}
+export const normalizeSong = compose(
+  rename('trackId', 'id'),
+  rename('collectionId', 'albumId'),
+  rename('trackName', 'title'),
+  rename('trackPrice', 'price'),
+  rename('trackTimeMillis', 'duration'),
+  rename('collectionPrice', 'price'),
+  renameWith(
+    'collectionExplicitness',
+    'explicit',
+    (value) => value === 'explicit',
+  ),
+)

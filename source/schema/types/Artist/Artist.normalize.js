@@ -1,12 +1,10 @@
 // @flow
-import type { Artist, ArtistResponse } from '~/schema/types/Artist/types'
+import { compose } from 'ramda'
+import { rename } from '~/utils'
 
-export function normalizeArtist(res: ArtistResponse): Artist {
-  return {
-    id: res.artistId,
-    name: res.artistName,
-    genreId: res.primaryGenreId,
-    genreName: res.primaryGenreName,
-    artistLinkUrl: res.artistLinkUrl,
-  }
-}
+export const normalizeArtist = compose(
+  rename('artistId', 'id'),
+  rename('artistName', 'name'),
+  rename('primaryGenreId', 'genreId'),
+  rename('primaryGenreName', 'genreName'),
+)
