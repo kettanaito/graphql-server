@@ -1,2 +1,4 @@
 # Root Query
+# Query type is extended in each entity type.
+# This makes it easy to see what global queries a type introduces.
 type Query

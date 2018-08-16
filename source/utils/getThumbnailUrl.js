@@ -1,7 +1,7 @@
 // @flow
 import urlUtils from 'url'
 
-type TParsedUrl = {
+type ParsedUrl = {
   path: string,
   href: string,
   pathname: string,
@@ -18,7 +18,7 @@ export default function getThumbnailUrl(
   quality: string = 'bb',
 ): string {
   const expectedDimensions = `${size}x${size}${quality}`
-  const parsedUrl: TParsedUrl = urlUtils.parse(baseUrl)
+  const parsedUrl: ParsedUrl = urlUtils.parse(baseUrl)
 
   return parsedUrl.href.replace(/(?!=\/)(\w+)(?=\.\w+$)/gi, expectedDimensions)
 }

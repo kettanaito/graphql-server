@@ -5,7 +5,7 @@ type Artist {
   genreName: String
   artistLinkUrl: String
   coverImageUrl(size: Int!, quality: String): String
-  albums(limit: Int = 999): [Album]
+  albums(limit: Int = 999): [Album!]
 }
 
 extend type Query {

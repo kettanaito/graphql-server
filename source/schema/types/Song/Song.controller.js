@@ -1,18 +1,20 @@
+import { drop, map } from 'ramda'
 import { Controller } from '~/classes'
 import { arrayUtils } from '~/utils'
 import { normalizeSong } from './Song.normalize'
 
 export default class SongController extends Controller {
-  url = 'https://itunes.apple.com/search'
+  searchUrl = 'https://itunes.apple.com/search'
+  normalizeSongs = map(normalizeSong)
 
   getByTerm({ term, first }) {
     const params = {
-      url: this.url,
+      url: this.searchUrl,
       query: {
         term,
       },
-      transformResponse(res) {
-        return res.results.map(normalizeSong)
+      transformResponse: (res) => {
+        return this.normalizeSongs(res.results)
       },
     }
 
@@ -26,10 +28,9 @@ export default class SongController extends Controller {
         id: albumId,
         entity: 'song',
       },
-      transformResponse(res) {
-        console.log('\n\ngetByAlbumId res:', res)
-        const slicedResults = res.results.slice(1, res.results.length)
-        return slicedResults.map(normalizeSong)
+      transformResponse: (res) => {
+        const songsJson = drop(1, res.results)
+        return this.normalizeSongs(songsJson)
       },
     }
 

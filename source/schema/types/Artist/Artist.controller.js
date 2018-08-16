@@ -1,4 +1,5 @@
 // @flow
+import { head } from 'ramda'
 import metafetch from 'metafetch'
 import { Controller } from '~/classes'
 import { normalizeArtist } from './Artist.normalize'
@@ -13,9 +14,7 @@ export default class ArtistController extends Controller {
         entity: 'musicArtist',
       },
       transformResponse(res) {
-        console.log('arist res:', res)
-        const artistJson = res.results[0]
-        console.log('artistJson:', artistJson)
+        const artistJson = head(res.results)
         return normalizeArtist(artistJson)
       },
     }
@@ -32,12 +31,8 @@ export default class ArtistController extends Controller {
         limit: 1,
       },
       transformResponse(res) {
-        console.log('res:', res)
-
-        const norm = normalizeArtist(res.results[0])
-
-        console.log('norm:', norm)
-        return norm
+        const artistJson = head(res.results)
+        return normalizeArtist(artistJson)
       },
     }
 
@@ -48,7 +43,7 @@ export default class ArtistController extends Controller {
     return new Promise((resolve, reject) => {
       const { artistLinkUrl } = root
 
-      metafetch.fetch(artistLinkUrl, function(error, meta) {
+      metafetch.fetch(artistLinkUrl, (error, meta) => {
         if (error) {
           return reject(error)
         }

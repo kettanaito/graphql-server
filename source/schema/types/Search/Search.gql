@@ -1,10 +1,11 @@
+# Search can return both artist or album
 union MixedResults = Artist | Album
 
 extend type Query {
   search(
-    media: SearchMediaType
-    entity: SearchEntityType
     term: String!
+    entity: SearchEntityType
+    media: SearchMediaType
     limit: Int
   ): [MixedResults]
 
