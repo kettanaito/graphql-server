@@ -9,11 +9,11 @@
   "source": "source/index.js",
   "main": "public/index.js",
   "scripts": {
-    "start": "NODE_ENV=development webpack --watch",
+    "start": "cross-env NODE_ENV=development webpack --watch",
     "flow": "flow source/**/*.test.js",
     "test": "jest",
     "server": "node public",
-    "build": "NODE_ENV=production webpack"
+    "build": "cross-env NODE_ENV=production webpack"
   },
   "husky": {
     "hooks": {
@@ -43,6 +43,7 @@
     "chai": "^4.1.2",
     "compression": "^1.7.2",
     "cors": "^2.8.4",
+    "cross-env": "^5.2.0",
     "dataloader": "^1.4.0",
     "express": "^4.16.2",
     "express-jwt": "^5.3.1",
