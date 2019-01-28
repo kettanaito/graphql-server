@@ -30,13 +30,13 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        include: path.resolve(__dirname, 'source'),
+        // include: path.resolve(__dirname, 'source'),
         exclude: /node_modules/,
         use: ['babel-loader'],
       },
       {
         test: /\.gql$/,
-        include: path.resolve(__dirname, 'source'),
+        // include: path.resolve(__dirname, 'source'),
         exclude: /node_modules/,
         use: ['graphql-tag/loader'],
       },
@@ -61,5 +61,5 @@ module.exports = {
   resolve: {
     extensions: ['.flow.js', '.js'],
   },
-  devtool: 'sourcemap',
+  devtool: 'source-map',
 }

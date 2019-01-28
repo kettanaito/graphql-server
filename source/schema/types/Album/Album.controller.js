@@ -2,6 +2,8 @@ import { Controller } from '~/classes'
 import { normalizeAlbum } from './Album.normalize'
 
 export default class AlbumController extends Controller {
+  static className = 'AlbumController'
+
   getById({ id }, context) {
     const params = {
       url: context.SearchController.lookupUrl,
