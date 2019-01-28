@@ -4,6 +4,8 @@ import { arrayUtils } from '~/utils'
 import { normalizeSong } from './Song.normalize'
 
 export default class SongController extends Controller {
+  static className = 'SongController'
+
   searchUrl = 'https://itunes.apple.com/search'
   normalizeSongs = map(normalizeSong)
 

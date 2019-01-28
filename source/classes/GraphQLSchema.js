@@ -7,17 +7,17 @@ import { isset, invariant } from '~/utils'
 export type TSchemaEntity = {
   types: DocumentNode,
   resolvers: Object,
-  controller: typeof Controller
+  controller: typeof Controller,
 }
 
 export type TSchemaEntityMap = {
-  [entityName: string]: TSchemaEntity
+  [entityName: string]: TSchemaEntity,
 }
 
 export type TSchemaOptions = {
   enums?: DocumentNode[],
   scalars?: TSchemaEntityMap,
-  types?: TSchemaEntityMap
+  types?: TSchemaEntityMap,
 }
 
 export default class GraphQLSchema {
@@ -28,7 +28,7 @@ export default class GraphQLSchema {
   constructor(options: TSchemaOptions) {
     invariant(
       options,
-      'GraphQLSchema: Cannot create a schema with no options provided.'
+      'GraphQLSchema: Cannot create a schema with no options provided.',
     )
 
     const { enums, scalars, types } = options
@@ -45,7 +45,7 @@ export default class GraphQLSchema {
   }
 
   apply(entityMap: TSchemaEntityMap, entityType: string) {
-    Object.keys(entityMap).forEach(entityName => {
+    Object.keys(entityMap).forEach((entityName) => {
       const entityValue: TSchemaEntity = entityMap[entityName]
 
       invariant(
@@ -54,7 +54,7 @@ export default class GraphQLSchema {
           'of { type, resolvers, controller } shape, but got: %s',
         entityType,
         entityName,
-        entityValue
+        entityValue,
       )
 
       const { types, resolvers, controller } = entityValue
@@ -64,7 +64,7 @@ export default class GraphQLSchema {
         'GraphQLSchema: Failed to apply the %s `%s`. Expected a valid type definition, but got: %s',
         entityType,
         entityName,
-        types
+        types,
       )
 
       this.applyTypeDef(types)
@@ -74,7 +74,7 @@ export default class GraphQLSchema {
       }
 
       if (controller) {
-        this.context[controller.name] = new controller()
+        this.context[controller.className] = new controller()
       }
     })
 

@@ -2,6 +2,8 @@ import { Controller } from '~/classes'
 import { normalizeSearchResults } from './Search.normalize'
 
 export default class SearchController extends Controller {
+  static className = 'SearchController'
+
   searchUrl = 'https://itunes.apple.com/search'
   lookupUrl = 'https://itunes.apple.com/lookup'
 
@@ -12,12 +14,12 @@ export default class SearchController extends Controller {
         media,
         entity,
         term,
-        limit
+        limit,
       },
       transformResponse(res) {
         console.log(res.results[0])
         return res.results.map(normalizeSearchResults)
-      }
+      },
     }
 
     return this.request(params)
@@ -29,12 +31,12 @@ export default class SearchController extends Controller {
       query: {
         id,
         entity,
-        limit
+        limit,
       },
       transformResponse(res) {
         const json = res.results[0]
         return normalizeSearchResults(json)
-      }
+      },
     }
 
     return this.request(params)

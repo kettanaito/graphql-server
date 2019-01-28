@@ -6,6 +6,8 @@ import { normalizeArtist } from './Artist.normalize'
 import { getThumbnailUrl } from '~/utils'
 
 export default class ArtistController extends Controller {
+  static className = 'ArtistController'
+
   getById(id, context) {
     const params = {
       url: context.SearchController.lookupUrl,

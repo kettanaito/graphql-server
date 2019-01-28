@@ -24,6 +24,8 @@ if (process.env.NODE_ENV === 'production') {
   app.use(compression())
 }
 
+console.log('context:', schema.context)
+
 const apolloServer = new ApolloServer({
   schema: makeExecutableSchema(schema),
   context: schema.context,
