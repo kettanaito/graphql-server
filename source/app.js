@@ -3,9 +3,9 @@ import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import compression from 'compression'
-import bodyParser from 'body-parser'
+// import bodyParser from 'body-parser'
 import RateLimit from 'express-rate-limit'
-import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
+import { ApolloServer } from 'apollo-server-express'
 import { makeExecutableSchema } from 'graphql-tools'
 import { GRAPHQL_ENDPOINT, RATE_LIMIT } from './config'
 import schema from './schema'
@@ -26,23 +26,24 @@ if (process.env.NODE_ENV === 'production') {
   app.use(compression())
 }
 
-if (process.env.NODE_ENV === 'development') {
-  app.use(
-    '/graphiql',
-    graphiqlExpress({
-      endpointURL: GRAPHQL_ENDPOINT,
-    }),
-  )
-}
+// if (process.env.NODE_ENV === 'development') {
+//   app.use(
+//     '/graphiql',
+//     graphiqlExpress({
+//       endpointURL: GRAPHQL_ENDPOINT,
+//     }),
+//   )
+// }
 
-app.use(
-  GRAPHQL_ENDPOINT,
-  bodyParser.json(),
-  graphqlExpress(() => ({
-    schema: makeExecutableSchema(schema),
-    context: schema.context,
-    formatError,
-  })),
-)
+const apolloServer = new ApolloServer({
+  schema: makeExecutableSchema(schema),
+  context: schema.context,
+  formatError,
+})
+
+apolloServer.applyMiddleware({
+  app,
+  path: GRAPHQL_ENDPOINT,
+})
 
 export default app
