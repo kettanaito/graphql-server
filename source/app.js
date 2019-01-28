@@ -3,7 +3,6 @@ import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import compression from 'compression'
-// import bodyParser from 'body-parser'
 import RateLimit from 'express-rate-limit'
 import { ApolloServer } from 'apollo-server-express'
 import { makeExecutableSchema } from 'graphql-tools'
@@ -12,8 +11,7 @@ import schema from './schema'
 import formatError from './formatError'
 
 const app = express()
-app.use(cors())
-app.use(helmet())
+app.use(cors(), helmet())
 
 if (process.env.NODE_ENV === 'production') {
   app.use(
@@ -26,19 +24,16 @@ if (process.env.NODE_ENV === 'production') {
   app.use(compression())
 }
 
-// if (process.env.NODE_ENV === 'development') {
-//   app.use(
-//     '/graphiql',
-//     graphiqlExpress({
-//       endpointURL: GRAPHQL_ENDPOINT,
-//     }),
-//   )
-// }
-
 const apolloServer = new ApolloServer({
   schema: makeExecutableSchema(schema),
   context: schema.context,
   formatError,
+  playground: {
+    settings: {
+      'editor.theme': 'light',
+      'editor.fontSize': 16,
+    },
+  },
 })
 
 apolloServer.applyMiddleware({
